@@ -5,7 +5,6 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Ajouter Lieu" Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
-
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Nouvelle Dépense" Style="{StaticResource titre}" Margin="0, 10"/>

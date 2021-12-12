@@ -14,14 +14,11 @@ namespace Depense.Model
         public decimal Montant { get; set; }
         public DateTime Date { get; set; }
         public int CategorieId { get; set; }
-
-        public string LieuNom { get; set; }
+        public string LieuNom{get; set;}
         public string LieuCategorieId { get; set; }
-        public string LieuAddress { get; set; }
+        public string LieuAddresse { get; set; }
         public double LieuLatitude { get; set; }
         public double LieuLongitude { get; set; }
-
-
         public string CategorieNom
         {
             get
@@ -34,3 +31,4 @@ namespace Depense.Model
         }
     }
 }
+

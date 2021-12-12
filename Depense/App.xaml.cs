@@ -3,10 +3,10 @@ using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Xamarin.Essentials;
-using System.Threading.Tasks;
 
 namespace Depense
 {
@@ -38,6 +38,25 @@ namespace Depense
             MainPage = new NavigationPage(new Login());
         }
 
+        public static async Task<PermissionStatus> ValiderEtDemanderLocalisation()
+        {
+            var statut = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+
+            if (statut == PermissionStatus.Granted)
+            {
+                return statut;
+            }
+
+            if (statut == PermissionStatus.Denied && DeviceInfo.Platform == DevicePlatform.iOS)
+            {
+                //Demander à l'utilisateur d'activer la permission dans les paramètres
+            }
+
+            statut = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+
+            return statut;
+        }
+
         protected override void OnStart()
         {
             ValiderEtDemanderLocalisation();
@@ -50,26 +69,5 @@ namespace Depense
         protected override void OnResume()
         {
         }
-        public static async Task<PermissionStatus> ValiderEtDemanderLocalisation()
-        {
-            var statut = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
-            if (statut == PermissionStatus.Granted){
-            return statut;
-            }
-
-            // Si la permission n'est pas donnée pour l'application IOS
-            if (statut == PermissionStatus.Denied && DeviceInfo.Platform == DevicePlatform.iOS){
-                // Puisque ce code est partagé entre Android et IOS
-                // pour demander la permission dans IOS il
-                // faut afficher un message qui demande d'activer la permission
-                // dans les paramètres
-              
-
-            }
-            statut = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
-            return statut;
-        }
-
-
     }
 }

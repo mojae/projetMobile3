@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using SQLite;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Depense.Helper;
 
 namespace Depense
 {
@@ -18,7 +19,7 @@ namespace Depense
             InitializeComponent();
         }
 
-        private void btnCreerCompte_Clicked(object sender, EventArgs e)
+        private async void btnCreerCompte_Clicked(object sender, EventArgs e)
         {
             var adresseCourriel = txtAdresseCourriel.Text;
             var motDePasse = txtMotDePasse.Text;
@@ -50,24 +51,32 @@ namespace Depense
 
             //valider l'addresse courriel est exacte
 
-            var nouveauUtilisateur = new Utilisateur() { AdresseCourriel = adresseCourriel, MotDePasse = motDePasse };
+            //var nouveauUtilisateur = new Utilisateur() { AdresseCourriel = adresseCourriel, MotDePasse = motDePasse };
 
-            using (var conn = new SQLiteConnection(App.CheminBD))
+            //using (var conn = new SQLiteConnection(App.CheminBD))
+            //{
+            //    var exist = conn.Table<Utilisateur>().ToList().Exists(x => x.AdresseCourriel == adresseCourriel);
+
+            //    if (exist)
+            //    {
+            //        DisplayAlert("Alert", "Il existe déjà un utilisateur avec cette addresse courriel.", "Fermer");
+            //        return;
+            //    }
+
+            //    conn.Insert(nouveauUtilisateur);
+            //}
+
+            //DisplayAlert("Message", "L'utilisateur a été créé avec succès", "Fermer");
+
+            //Navigation.PopAsync();
+
+            var succes = await Auth.CreerUtilisateur(adresseCourriel, motDePasse);
+            if (succes)
             {
-                var exist = conn.Table<Utilisateur>().ToList().Exists(x => x.AdresseCourriel == adresseCourriel);
-
-                if (exist)
-                {
-                    DisplayAlert("Alert", "Il existe déjà un utilisateur avec cette addresse courriel.", "Fermer");
-                    return;
-                }
-
-                conn.Insert(nouveauUtilisateur);
+                await DisplayAlert("Message", "L'utilisateur a été créé avec succès", "Fermer");
+                await Navigation.PopAsync();
             }
 
-            DisplayAlert("Message", "L'utilisateur a été créé avec succès", "Fermer");
-
-            Navigation.PopAsync();
 
         }
     }

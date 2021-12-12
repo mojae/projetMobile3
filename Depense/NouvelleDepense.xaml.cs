@@ -36,7 +36,9 @@ namespace Depense
 
             using (var conn = new SQLiteConnection(App.CheminBD))
             {
-                pickCategorie.ItemsSource = conn.Table<Categorie>().ToList();
+                var listeCategories = conn.Table<Categorie>().ToList();
+
+                pickCategorie.ItemsSource = listeCategories;
                 pickCategorie.ItemDisplayBinding = new Binding("Nom");
 
                 //Remplir les champs avec les valeurs de la dépense à modifier
@@ -45,7 +47,7 @@ namespace Depense
                     txtDescription.Text = _depense.Description;
                     txtMontant.Text = _depense.Montant.ToString();
                     datePick.Date = _depense.Date;
-                    pickCategorie.SelectedItem = conn.Table<Categorie>().ToList().FirstOrDefault(x => x.Id == _depense.CategorieId);
+                    pickCategorie.SelectedItem = listeCategories.FirstOrDefault(x => x.Id == _depense.CategorieId);
                 }
             }
         }
@@ -94,15 +96,14 @@ namespace Depense
                         CategorieId = (categorie as Categorie).Id
                     };
 
-                    if (_venue != null)
+                    if(_venue != null)
                     {
-                        nouvelleDepense.LieuAddress = _venue.location.address;
+                        nouvelleDepense.LieuAddresse = _venue.location.address;
                         nouvelleDepense.LieuCategorieId = _venue.categories[0].id;
                         nouvelleDepense.LieuLatitude = _venue.location.lat;
                         nouvelleDepense.LieuLongitude = _venue.location.lng;
                         nouvelleDepense.LieuNom = _venue.name;
                     }
-
 
                     conn.Insert(nouvelleDepense);
                 }
@@ -122,13 +123,12 @@ namespace Depense
 
                     if (_venue != null)
                     {
-                        depense.LieuAddress = _venue.location.address;
+                        depense.LieuAddresse = _venue.location.address;
                         depense.LieuCategorieId = _venue.categories[0].id;
                         depense.LieuLatitude = _venue.location.lat;
                         depense.LieuLongitude = _venue.location.lng;
                         depense.LieuNom = _venue.name;
                     }
-
 
                     conn.Update(depense);
                 }
@@ -159,6 +159,5 @@ namespace Depense
             await Navigation.PushAsync(new Lieux(venue));
             _venue = venue;
         }
-
     }
 }

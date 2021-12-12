@@ -24,7 +24,7 @@ namespace Depense.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            Xamarin.Forms.Forms.Init();
+            Xamarin.FormsMaps.Init();
 
             var nomBD = "depense_db.sqlite";
             var repertoire = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "..", "Library");

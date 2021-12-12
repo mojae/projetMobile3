@@ -17,7 +17,8 @@ namespace Depense.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            Xamarin.FormsMaps.Init(this, savedInstanceState);
+
             var nomBD = "depense_db.sqlite";
             var repertoire = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             var cheminAcces = Path.Combine(repertoire, nomBD);

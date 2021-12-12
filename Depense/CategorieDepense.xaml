@@ -13,8 +13,6 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell Text="{Binding Nom}" Detail="{Binding Pourcentage, StringFormat='Dépense totale de {0:0.00}%'}" />
-                        <!--Ajouter une propriété Detail au TextCell qui affiche le pourcentage de chaque catégorie par rapport au montant totale des dépenses-->
-                        <!--À considérer une méthode pour calculer le pourcentage de chaque catégorie-->
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

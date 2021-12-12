@@ -1,4 +1,5 @@
-﻿using Depense.Model;
+﻿using Depense.Helper;
+using Depense.Model;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -41,12 +42,19 @@ namespace Depense
                     }
                     else
                     {
-                        var creerCompte = await DisplayAlert("Alert", "Il n'existe pas un utilisateur avec cette adresse courriel et ce mot de passe. Voulez-vous créer un nouveau compte?", "Oui", "Non");
+                        //var creerCompte = await DisplayAlert("Alert", "Il n'existe pas un utilisateur avec cette adresse courriel et ce mot de passe. Voulez-vous créer un nouveau compte?", "Oui", "Non");
 
-                        if (creerCompte)
+                        //if (creerCompte)
+                        //{
+                        //    Navigation.PushAsync(new NouveauCompte());
+                        //}
+
+                        var succes = await Auth.ConnecterUtilisateur(adresseCourriel, motDePasse);
+                        if (succes)
                         {
-                            Navigation.PushAsync(new NouveauCompte());
+                            App.Current.MainPage = new NavigationPage(new Main());
                         }
+
                     }
                 }
             }

@@ -8,8 +8,7 @@
             <maps:Map HorizontalOptions="FillAndExpand"
                       VerticalOptions="FillAndExpand"
                       x:Name="carteLocalisation"
-                      IsShowingUser="True"
-                      />
+                      IsShowingUser="True" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

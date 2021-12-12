@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Depense.Model;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using System.Reflection;
-using System.IO;
-using Newtonsoft.Json;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Depense.Model;
 
 namespace Depense
 {
@@ -21,19 +22,20 @@ namespace Depense
             InitializeComponent();
             RetournerLieux();
             _venue = venue;
-
         }
 
-        public async void RetournerLieux()
+        public void RetournerLieux()
         {
             var assembly = Assembly.GetExecutingAssembly();
             var resourceName = "Depense.FOURSQUARE_Response.txt";
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
+            using(Stream stream = assembly.GetManifestResourceStream(resourceName))
             {
-                string json = reader.ReadToEnd();
-                var lieux = JsonConvert.DeserializeObject<EntLieu>(json);
-                listeLieux.ItemsSource = lieux.response.venues;
+                using(StreamReader reader = new StreamReader(stream))
+                {
+                    string json = reader.ReadToEnd();
+                    var lieux = JsonConvert.DeserializeObject<EntLieu>(json);
+                    listeLieux.ItemsSource = lieux.response.venues;
+                }
             }
         }
 
@@ -47,8 +49,5 @@ namespace Depense
             _venue.name = lieu.name;
             Navigation.PopAsync();
         }
-
-
-
     }
 }
