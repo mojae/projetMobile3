@@ -19,11 +19,11 @@
     <ContentPage.Content>
         <StackLayout Padding="10, 150, 10, 10">
 
-            <Label Text="Dépense"
+            <Label Text="Mes Lieux"
                     Style="{StaticResource titre}"
                    HorizontalOptions="Center"
                    />
-            <Label Text="Développé par Simon Inc."
+            <Label Text="Développé par Mo Inc."
                    HorizontalOptions="Center"
                    Style="{StaticResource normal}"
                    Margin="0, 0, 0, 60"/>
@@ -35,7 +35,7 @@
                    BackgroundColor="White"
                    Margin="0, 0, 0, 10"
                    Keyboard="Email"
-                   Text="test@test.com"/>
+                   Text="mojae@test.com"/>
             <Label Text="mot de passe"
                    Style="{StaticResource normal}"
                    />
@@ -44,7 +44,7 @@
                    BackgroundColor="White"
                    Margin="0, 0, 0, 10"
                    IsPassword="True"
-                   Text="test123"/>
+                   Text="123456"/>
             <Button Text="Se Connecter"
                     x:Name="btnConnexion"
                     Clicked="btnConnexion_Clicked"/>

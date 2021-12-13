@@ -30,9 +30,9 @@ namespace Depense
 
             using (var conn = new SQLiteConnection(CheminBD))
             {
-                conn.CreateTable<Utilisateur>();
-                conn.CreateTable<EntDepense>();
-                conn.CreateTable<Categorie>();
+                conn.CreateTable<MonLieu>();
+                conn.CreateTable<UtilisateurLieu>();
+   
             }
 
             MainPage = new NavigationPage(new Login());

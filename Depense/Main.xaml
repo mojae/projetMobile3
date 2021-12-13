@@ -4,8 +4,8 @@
             xmlns:local="clr-namespace:Depense"
              x:Class="Depense.Main">
 
-    <local:Depense Title="Dépenses" />
+    <local:LieuxPreferes Title="Lieux Préférés" />
     <local:Carte Title="Carte" />
-    <local:CategorieDepense Title="Dépenses par catégorie"/>
+    <local:Configuration Title="Configuration"/>
 
 </TabbedPage>

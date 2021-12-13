@@ -79,5 +79,13 @@ namespace Depense
 
 
         }
+
+        private async void btnAnnuler_Clicked(object sender, EventArgs e)
+        {
+           var answer= await DisplayAlert("Message", "Congirmer votre annulation", "oui" , "non");
+            if (answer) {
+                Navigation.PopAsync();
+            }
+        }
     }
 }

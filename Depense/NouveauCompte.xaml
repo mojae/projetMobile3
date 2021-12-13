@@ -13,6 +13,7 @@
             <Label Text="Confirmation de mot de passe" Style="{StaticResource controle}"/>
             <Entry x:Name="txtConfirmationMotDePasse" Placeholder="Confirmer le mot de passe" IsPassword="True"/>
             <Button x:Name="btnCreerCompte" Text="Créer le compte" Clicked="btnCreerCompte_Clicked"/>
+            <Button x:Name="btnAnnuler" Text="Annuler" Clicked="btnAnnuler_Clicked" />
         </StackLayout>
     </ContentPage.Content>
     
