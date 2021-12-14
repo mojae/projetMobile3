@@ -1,4 +1,5 @@
-﻿using Depense.Model;
+﻿using Depense.Helper;
+using Depense.Model;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,15 @@ namespace Depense
     public partial class NouveauLieu : ContentPage
     {
         private MonLieu _lieu;
-        private List<String> listeCategories = new List<string> {"Prefereés","Souhaités","Visités" };
+        private static List<String> listeCategories = new List<string> {"Connus","Désirés","Visités" };
         public NouveauLieu()
         {
+            InitializeComponent();
+        }
+
+        public NouveauLieu(MonLieu lieu)
+        {
+            _lieu = lieu;
             InitializeComponent();
         }
 
@@ -39,6 +46,8 @@ namespace Depense
                     NomEntry.Text = _lieu.Nom ;
                     AdresseEntry.Text = _lieu.Adresse;
                     pickCategorie.SelectedItem = _lieu.Categorie;
+                    LatitudeEntry.Text = _lieu.Latitude.ToString();
+                    LongitudeEntry.Text = _lieu.Longitude.ToString();
                 }
             }
         }
@@ -46,6 +55,87 @@ namespace Depense
 
         private void btnEnregistrer_Clicked(object sender, EventArgs e)
         {
+            var nom = NomEntry.Text;
+            var adresse = AdresseEntry.Text;
+            var categorie = pickCategorie.SelectedItem.ToString();
+            decimal latitude = 0;
+            decimal.TryParse(LatitudeEntry.Text, out latitude);
+            decimal longitude = 0;
+            decimal.TryParse(LongitudeEntry.Text, out longitude);
+         
+            
+
+            if (string.IsNullOrEmpty(nom))
+            {
+                DisplayAlert("Alert", "Veuillez saisir un nom", "Fermer");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(LatitudeEntry.Text))
+            {
+                DisplayAlert("Alert", "Veuillez saisir une Latitude", "Fermer");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(LongitudeEntry.Text))
+            {
+                DisplayAlert("Alert", "Veuillez saisir une Longitude", "Fermer");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(adresse))
+            {
+                DisplayAlert("Alert", "Veuillez saisir une adresse", "Fermer");
+                return;
+            }
+
+            if (categorie == null)
+            {
+                DisplayAlert("Alert", "Veuillez saisir une catégorie", "Fermer");
+                return;
+            }
+
+            if (_lieu == null)
+            {
+                using (var conn = new SQLiteConnection(App.CheminBD))
+                {
+                    var nouveauLieu = new MonLieu()
+                    {
+                        UtilisateurId = Auth.RetourerIdentifiantUtilisateur(),
+                        Nom = nom,
+                        Adresse = adresse,
+                        Categorie = categorie,
+                        Latitude =latitude,
+                        Longitude =longitude
+
+                       
+                    };
+
+                   
+                    conn.Insert(nouveauLieu);
+                }
+            }
+            else
+            {
+                using (var conn = new SQLiteConnection(App.CheminBD))
+                {
+                    var lieu = conn.Table<MonLieu>().ToList().FirstOrDefault(x => x.Id == _lieu.Id);
+                    if (lieu != null)
+                    {
+                        lieu.Nom = nom;
+                        lieu.Adresse = adresse;
+                        lieu.Categorie = categorie;
+                        lieu.Latitude = latitude;
+                        lieu.Longitude = longitude;
+                      
+                    }
+
+                    conn.Update(lieu);
+                }
+            }
+
+            DisplayAlert("Message", "La dépense a été enregistrée avec succès", "Fermer");
+            Navigation.PopAsync();
 
         }
     }

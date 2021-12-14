@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Depense.Model
 {
-    class MonLieu
+    public class MonLieu
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        public int IdUtilisateur { get; set; }
+        public string UtilisateurId { get; set; }
         public string Nom { get; set; }
         public string Adresse { get; set; }
         public string Categorie { get; set; }

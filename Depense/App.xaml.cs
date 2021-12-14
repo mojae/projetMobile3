@@ -31,7 +31,7 @@ namespace Depense
             using (var conn = new SQLiteConnection(CheminBD))
             {
                 conn.CreateTable<MonLieu>();
-                conn.CreateTable<UtilisateurLieu>();
+                conn.CreateTable<EntConfiguration>();
    
             }
 

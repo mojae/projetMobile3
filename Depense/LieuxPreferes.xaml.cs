@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Depense.Helper;
+using Depense.Model;
+using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +18,18 @@ namespace Depense
         public LieuxPreferes()
         {
             InitializeComponent();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            using (var conn = new SQLiteConnection(App.CheminBD))
+            {
+                ListeDesLieux.ItemsSource = null;
+                ListeDesLieux.ItemsSource = conn.Table<MonLieu>().ToList().Where(l => l.UtilisateurId == Auth.RetourerIdentifiantUtilisateur() );
+            }
+
         }
 
         private void ToolbarItem_Clicked(object sender, EventArgs e)
