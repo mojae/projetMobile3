@@ -19,9 +19,9 @@
                 <Label Grid.Row="0" Grid.Column="0" Text="Lieux connus" FontSize="Large"  TextColor="MidnightBlue"/>
                 <Label Grid.Row="1" Grid.Column="0" Text="Lieux désirés" FontSize="Large" TextColor="MidnightBlue"/>
                 <Label Grid.Row="2" Grid.Column="0" Text="Lieux visités" FontSize="Large" TextColor="MidnightBlue"/>
-                <Switch x:Name="switch1" Grid.Row="0" Grid.Column="1" HorizontalOptions="End" OnColor="Yellow" Toggled="switch1_Toggled"  IsToggled="true"/>
-                <Switch x:Name="switch2" Grid.Row="1" Grid.Column="1" HorizontalOptions="End" OnColor="Yellow" Toggled="switch2_Toggled" IsToggled="true"/>
-                <Switch x:Name="switch3" Grid.Row="2" Grid.Column="1" HorizontalOptions="End" OnColor="Yellow" Toggled="switch3_Toggled" IsToggled="true"/>
+                <Switch x:Name="switch1" Grid.Row="0" Grid.Column="1" HorizontalOptions="End" OnColor="Yellow" Toggled="switch1_Toggled"  />
+                <Switch x:Name="switch2" Grid.Row="1" Grid.Column="1" HorizontalOptions="End" OnColor="Yellow" Toggled="switch2_Toggled" />
+                <Switch x:Name="switch3" Grid.Row="2" Grid.Column="1" HorizontalOptions="End" OnColor="Yellow" Toggled="switch3_Toggled" />
             </Grid>
             <Label />
             <Label Text="Degré de localisation sur la carte" HorizontalOptions="CenterAndExpand"  FontSize="Large" TextColor="Black"/>

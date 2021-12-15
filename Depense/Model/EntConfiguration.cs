@@ -13,8 +13,8 @@ namespace Depense.Model
         public bool Switch1 { get; set; }
         public bool Switch2 { get; set; }
         public bool Switch3 { get; set; }
-        public Decimal DegreLatitude { get; set; }
-        public Decimal DegreLongitude { get; set; }
+        public Double DegreLatitude { get; set; }
+        public Double DegreLongitude { get; set; }
     }
 }
 

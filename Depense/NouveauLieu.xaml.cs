@@ -58,10 +58,10 @@ namespace Depense
             var nom = NomEntry.Text;
             var adresse = AdresseEntry.Text;
             var categorie = pickCategorie.SelectedItem.ToString();
-            decimal latitude = 0;
-            decimal.TryParse(LatitudeEntry.Text, out latitude);
-            decimal longitude = 0;
-            decimal.TryParse(LongitudeEntry.Text, out longitude);
+            double latitude = 0;
+            double.TryParse(LatitudeEntry.Text, out latitude);
+            double longitude = 0;
+            double.TryParse(LongitudeEntry.Text, out longitude);
          
             
 
