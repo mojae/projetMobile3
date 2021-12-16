@@ -1,4 +1,5 @@
-﻿using Depense.Model;
+﻿using Depense.Helper;
+using Depense.Model;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using SQLite;
@@ -80,17 +81,17 @@ namespace Depense
         {
             using(var conn = new SQLiteConnection(App.CheminBD))
             {
-                var depenses = conn.Table<EntDepense>().ToList();
-                foreach (var depense in depenses)
+                var lieux = conn.Table<MonLieu>().ToList().Where(l => l.UtilisateurId == Auth.RetourerIdentifiantUtilisateur());
+                foreach (var lieu in lieux)
                 {
                     try
                     {
-                        var positionPin = new Xamarin.Forms.Maps.Position(depense.LieuLatitude, depense.LieuLongitude);
+                        var positionPin = new Xamarin.Forms.Maps.Position(lieu.Latitude, lieu.Longitude);
                         var pin = new Pin()
                         {
                             Position = positionPin,
-                            Label = depense.LieuNom,
-                            Address = depense.LieuAddresse,
+                            Label = lieu.Nom,
+                            Address = lieu.Adresse,
                             Type = PinType.SavedPin
                         };
 

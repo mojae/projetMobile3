@@ -4,7 +4,7 @@
              x:Class="Depense.App">
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="gris">#DDDDDD</Color>
+            <Color x:Key="gris">lightblue</Color>
             <Style TargetType="Button">
                 <Setter Property="BackgroundColor" Value="#65A3FF"/>
                 <Setter Property="TextColor" Value="White"/>

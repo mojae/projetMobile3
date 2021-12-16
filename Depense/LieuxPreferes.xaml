@@ -9,7 +9,7 @@
     <ContentPage.Content>
         <StackLayout>
 
-            <ListView x:Name="ListeDesLieux" >
+            <ListView x:Name="ListeDesLieux">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -29,8 +29,8 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button x:Name="btnEnregistrer" Text="Enregistrer" Clicked="btnEnregistrer_Clicked"/>
-            <Button x:Name="btnSModifier" Text="Supprimer" Style="{StaticResource lien}" Clicked="btnSModifier_Clicked"/>
+            <Button x:Name="btnVoir" Text="Voir sur la carte" Style="{StaticResource lien}" Clicked="btnEnregistrer_Clicked"/>
+            <Button x:Name="btnSModifier" Text="Modifier" Style="{StaticResource lien}" Clicked="btnSModifier_Clicked"/>
         </StackLayout>
         
      

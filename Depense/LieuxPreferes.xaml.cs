@@ -44,7 +44,12 @@ namespace Depense
 
         private void btnSModifier_Clicked(object sender, EventArgs e)
         {
-
+            MonLieu lieuSelectione = ListeDesLieux.SelectedItem as MonLieu;
+            if (lieuSelectione != null)
+            {
+                 Navigation.PushAsync(new NouveauLieu(lieuSelectione));
+            }
+            
         }
     }
 }
