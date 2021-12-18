@@ -32,6 +32,8 @@ namespace Depense
             {
                 conn.CreateTable<MonLieu>();
                 conn.CreateTable<EntConfiguration>();
+                //conn.DeleteAll<EntConfiguration>();
+                //conn.DeleteAll<MonLieu>();
    
             }
 

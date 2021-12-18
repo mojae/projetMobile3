@@ -35,7 +35,7 @@
                    BackgroundColor="White"
                    Margin="0, 0, 0, 10"
                    Keyboard="Email"
-                   Text="mojae@test.com"/>
+                   Text="joud@test.com"/>
             <Label Text="mot de passe"
                    Style="{StaticResource normal}"
                    />

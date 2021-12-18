@@ -51,7 +51,7 @@ namespace Depense
         {
             var statut = await App.ValiderEtDemanderLocalisation();
 
-            if(statut == PermissionStatus.Granted)
+            if (statut == PermissionStatus.Granted)
             {
                 var location = await Geolocation.GetLocationAsync();
 
@@ -79,10 +79,75 @@ namespace Depense
 
         private void ObtenirLieux()
         {
-            using(var conn = new SQLiteConnection(App.CheminBD))
+            using (var conn = new SQLiteConnection(App.CheminBD))
             {
-                var lieux = conn.Table<MonLieu>().ToList().Where(l => l.UtilisateurId == Auth.RetourerIdentifiantUtilisateur());
-                foreach (var lieu in lieux)
+                var lieux = conn.Table<MonLieu>().ToList().Where(l => l.UtilisateurId == Auth.RetourerIdentifiantUtilisateur()).ToList();
+                var lieuxConnus = lieux.Where(l => l.Categorie == "Connus").ToList();
+                var lieuxDesires = lieux.Where(l => l.Categorie == "Désirés").ToList();
+                var lieuxVisites = lieux.Where(l => l.Categorie == "Visités").ToList();
+
+                var config = conn.Table<EntConfiguration>().ToList().FirstOrDefault(c => c.UtilisateurId == Auth.RetourerIdentifiantUtilisateur());
+                if(config != null)
+                {    
+                        if (config.Switch1 == false && config.Switch2 == false && config.Switch3 == true && lieuxVisites != null)
+                        {
+                            carteLocalisation.Pins.Clear();
+                            AjouterPins(lieuxVisites);
+                        }
+
+                        if (config.Switch1 == false && config.Switch2 == true && config.Switch3 == false && lieuxDesires != null)
+                        {
+                            carteLocalisation.Pins.Clear();
+                            AjouterPins(lieuxDesires);
+                        }
+
+                        if (config.Switch1 == false && config.Switch2 == true && config.Switch3 == true && lieuxVisites != null && lieuxDesires != null)
+                        {
+                            carteLocalisation.Pins.Clear();
+                            AjouterPins(lieuxDesires);
+                            AjouterPins(lieuxVisites);
+                        }
+                        if (config.Switch1 == true && config.Switch2 == false && config.Switch3 == false && lieuxConnus != null)
+                        {
+                            carteLocalisation.Pins.Clear();
+                            AjouterPins(lieuxConnus);
+                        }
+                        if (config.Switch1 == true && config.Switch2 == false && config.Switch3 == true && lieuxConnus != null && lieuxVisites != null)
+                        {
+                            carteLocalisation.Pins.Clear();
+                            AjouterPins(lieuxConnus);
+                            AjouterPins(lieuxVisites);
+                        }
+                        if (config.Switch1 == true && config.Switch2 == true && config.Switch3 == false && lieuxConnus != null && lieuxDesires != null)
+                        {
+                            carteLocalisation.Pins.Clear();
+                            AjouterPins(lieuxConnus);
+                            AjouterPins(lieuxDesires);
+                        }
+
+                        if (config.Switch1 == true && config.Switch2 == true && config.Switch3 == true && lieux != null)
+                        {
+                            carteLocalisation.Pins.Clear();
+                            AjouterPins(lieux);
+               
+                        }
+                        if (config.Switch1 == false && config.Switch2 == false && config.Switch3 == false)
+                        {
+                            carteLocalisation.Pins.Clear();
+                   
+                        }
+
+
+
+                }
+            
+
+            }
+        }
+
+        private void AjouterPins(List<MonLieu>lieux)
+        {
+            foreach (var lieu in lieux)
                 {
                     try
                     {
@@ -97,9 +162,11 @@ namespace Depense
 
                         carteLocalisation.Pins.Add(pin);
                     }
-                    catch(Exception ex) { }
+                    catch (Exception ex) { }
                 }
-            }
+
         }
+
+       
     }
 }
