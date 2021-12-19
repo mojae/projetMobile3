@@ -21,7 +21,7 @@ namespace Depense
             InitializeComponent();
             using (var conn = new SQLiteConnection(App.CheminBD))
             {
-                var config = conn.Table<EntConfiguration>().ToList().FirstOrDefault(l => l.UtilisateurId == Auth.RetourerIdentifiantUtilisateur());
+                var config = conn.Table<EntConfiguration>().ToList().FirstOrDefault(c => c.UtilisateurId == Auth.RetourerIdentifiantUtilisateur());
 
                 if (config == null)
                 {
@@ -47,7 +47,7 @@ namespace Depense
            
             using (var conn = new SQLiteConnection(App.CheminBD))
             {
-                var config = conn.Table<EntConfiguration>().ToList().FirstOrDefault(l => l.UtilisateurId == Auth.RetourerIdentifiantUtilisateur());
+                var config = conn.Table<EntConfiguration>().ToList().FirstOrDefault(c => c.UtilisateurId == Auth.RetourerIdentifiantUtilisateur());
 
                 if (config != null)
                 {
@@ -86,7 +86,7 @@ namespace Depense
         {
             using (var conn = new SQLiteConnection(App.CheminBD))
             {
-                var config = conn.Table<EntConfiguration>().ToList().FirstOrDefault(l => l.UtilisateurId == Auth.RetourerIdentifiantUtilisateur());
+                var config = conn.Table<EntConfiguration>().ToList().FirstOrDefault(c => c.UtilisateurId == Auth.RetourerIdentifiantUtilisateur());
                 if (config != null)
                 {
                   config.Switch1 = switch1.IsToggled;
@@ -100,7 +100,7 @@ namespace Depense
         {
             using (var conn = new SQLiteConnection(App.CheminBD))
             {
-                var config = conn.Table<EntConfiguration>().ToList().FirstOrDefault(l => l.UtilisateurId == Auth.RetourerIdentifiantUtilisateur());
+                var config = conn.Table<EntConfiguration>().ToList().FirstOrDefault(c => c.UtilisateurId == Auth.RetourerIdentifiantUtilisateur());
                 if (config != null)
                 {
                     config.Switch2 = switch2.IsToggled;
@@ -116,7 +116,7 @@ namespace Depense
             
             using (var conn = new SQLiteConnection(App.CheminBD))
             {
-                var config = conn.Table<EntConfiguration>().ToList().FirstOrDefault(l => l.UtilisateurId == Auth.RetourerIdentifiantUtilisateur());
+                var config = conn.Table<EntConfiguration>().ToList().FirstOrDefault(c => c.UtilisateurId == Auth.RetourerIdentifiantUtilisateur());
                 if (config != null)
                 {
                     config.Switch3 = switch3.IsToggled;

@@ -18,10 +18,11 @@ namespace Depense
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Carte : ContentPage
     {
-
+        private MonLieu _UnlieuParmiLaListe;
         IGeolocator locator = CrossGeolocator.Current;
         public Carte()
         {
+            _UnlieuParmiLaListe = null;
             InitializeComponent();
 
             ObtenirLocalisation();
@@ -29,11 +30,29 @@ namespace Depense
             locator.PositionChanged += Locator_PositionChanged;
         }
 
+        public Carte(MonLieu lieu)
+        {
+            _UnlieuParmiLaListe = lieu;
+            InitializeComponent();
+
+            ObtenirLocalisationPourUnLieu(_UnlieuParmiLaListe);
+
+            //locator.PositionChanged += Locator_PositionChanged;
+        }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
             DemarrerLocalisation();
-            ObtenirLieux();
+            if (_UnlieuParmiLaListe == null)
+            {
+                ObtenirLieux();
+            }
+            else
+            {
+                ObtenirUnLieu(_UnlieuParmiLaListe);
+            }
+
         }
 
         protected override void OnDisappearing()
@@ -59,13 +78,30 @@ namespace Depense
             }
         }
 
+        private async void ObtenirLocalisationPourUnLieu(MonLieu lieu)
+        {
+            var statut = await App.ValiderEtDemanderLocalisation();
+
+            if (statut == PermissionStatus.Granted)
+            {
+                CentrerCarte(lieu.Latitude, lieu.Longitude);
+            }
+        }
+
         private void CentrerCarte(double latitude, double longitude)
         {
-            var centre = new Xamarin.Forms.Maps.Position(latitude, longitude);
+            using (var conn = new SQLiteConnection(App.CheminBD)) 
+            {
+                var config = conn.Table<EntConfiguration>().ToList().FirstOrDefault(c => c.UtilisateurId == Auth.RetourerIdentifiantUtilisateur());
+                var centre = new Xamarin.Forms.Maps.Position(latitude, longitude);
 
-            var span = new MapSpan(centre, 0.01, 0.01);
+                var span = new MapSpan(centre, config.DegreLatitude, config.DegreLongitude);
 
-            carteLocalisation.MoveToRegion(span);
+                carteLocalisation.MoveToRegion(span);
+            
+            
+            }
+                
         }
 
         private async void DemarrerLocalisation()
@@ -85,6 +121,8 @@ namespace Depense
                 var lieuxConnus = lieux.Where(l => l.Categorie == "Connus").ToList();
                 var lieuxDesires = lieux.Where(l => l.Categorie == "Désirés").ToList();
                 var lieuxVisites = lieux.Where(l => l.Categorie == "Visités").ToList();
+
+              
 
                 var config = conn.Table<EntConfiguration>().ToList().FirstOrDefault(c => c.UtilisateurId == Auth.RetourerIdentifiantUtilisateur());
                 if(config != null)
@@ -143,6 +181,32 @@ namespace Depense
             
 
             }
+        }
+
+        private void ObtenirUnLieu(MonLieu lieu)
+        {
+            using (var conn = new SQLiteConnection(App.CheminBD))
+            {
+                if (lieu != null)
+                {
+
+                    try
+                    {
+                        var positionPin = new Xamarin.Forms.Maps.Position(lieu.Latitude, lieu.Longitude);
+                        var pin = new Pin()
+                        {
+                            Position = positionPin,
+                            Label = lieu.Nom,
+                            Address = lieu.Adresse,
+                            Type = PinType.SavedPin
+                        };
+
+                        carteLocalisation.Pins.Add(pin);
+                    }
+                    catch (Exception ex) { }
+                }
+            }
+
         }
 
         private void AjouterPins(List<MonLieu>lieux)

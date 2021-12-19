@@ -42,6 +42,7 @@ namespace Depense
 
         public static async Task<PermissionStatus> ValiderEtDemanderLocalisation()
         {
+            
             var statut = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
 
             if (statut == PermissionStatus.Granted)
@@ -49,7 +50,7 @@ namespace Depense
                 return statut;
             }
 
-            if (statut == PermissionStatus.Denied && DeviceInfo.Platform == DevicePlatform.iOS)
+            if (statut == PermissionStatus.Denied && DeviceInfo.Platform == DevicePlatform.Android)
             {
                 //Demander à l'utilisateur d'activer la permission dans les paramètres
             }

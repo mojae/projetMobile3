@@ -37,10 +37,7 @@ namespace Depense
             Navigation.PushAsync(new NouveauLieu());
         }
 
-        private void btnEnregistrer_Clicked(object sender, EventArgs e)
-        {
-
-        }
+      
 
         private void btnSModifier_Clicked(object sender, EventArgs e)
         {
@@ -50,6 +47,16 @@ namespace Depense
                  Navigation.PushAsync(new NouveauLieu(lieuSelectione));
             }
             
+        }
+
+        private void btnVoir_Clicked(object sender, EventArgs e)
+        {
+            MonLieu lieuSelectione = ListeDesLieux.SelectedItem as MonLieu;
+            if (lieuSelectione != null)
+            {
+                Navigation.PushAsync(new Carte(lieuSelectione));
+            }
+
         }
     }
 }

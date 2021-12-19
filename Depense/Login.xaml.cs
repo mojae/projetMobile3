@@ -50,6 +50,7 @@ namespace Depense
                         //}
 
                         var succes = await Auth.ConnecterUtilisateur(adresseCourriel, motDePasse);
+                        var user = Auth.RetourerIdentifiantUtilisateur();
                         if (succes)
                         {
                             App.Current.MainPage = new NavigationPage(new Main());

@@ -134,7 +134,7 @@ namespace Depense
                 }
             }
 
-            DisplayAlert("Message", "La dépense a été enregistrée avec succès", "Fermer");
+            DisplayAlert("Message", "Le Lieu a été enregistrée avec succès", "Fermer");
             Navigation.PopAsync();
 
         }

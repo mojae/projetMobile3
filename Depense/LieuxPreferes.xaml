@@ -29,7 +29,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button x:Name="btnVoir" Text="Voir sur la carte" Style="{StaticResource lien}" Clicked="btnEnregistrer_Clicked"/>
+            <Button x:Name="btnVoir" Text="Voir sur la carte" Style="{StaticResource lien}" Clicked="btnVoir_Clicked"/>
             <Button x:Name="btnSModifier" Text="Modifier" Style="{StaticResource lien}" Clicked="btnSModifier_Clicked"/>
         </StackLayout>
         
