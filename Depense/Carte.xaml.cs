@@ -92,10 +92,19 @@ namespace Depense
         {
             using (var conn = new SQLiteConnection(App.CheminBD)) 
             {
+                
                 var config = conn.Table<EntConfiguration>().ToList().FirstOrDefault(c => c.UtilisateurId == Auth.RetourerIdentifiantUtilisateur());
                 var centre = new Xamarin.Forms.Maps.Position(latitude, longitude);
+                var span = new MapSpan(centre, 0.01, 0.01);
 
-                var span = new MapSpan(centre, config.DegreLatitude, config.DegreLongitude);
+
+                if (config != null)
+                {
+                    span = new MapSpan(centre, config.DegreLatitude, config.DegreLongitude);
+
+                }
+                
+                
 
                 carteLocalisation.MoveToRegion(span);
             

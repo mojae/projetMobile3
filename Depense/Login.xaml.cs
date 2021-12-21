@@ -34,20 +34,7 @@ namespace Depense
                 using (var conn = new SQLiteConnection(App.CheminBD))
                 {
 
-                    var existe = conn.Table<Utilisateur>().ToList().Exists(x => x.AdresseCourriel == adresseCourriel && x.MotDePasse == motDePasse);
-                    if (existe)
-                    {
-                        //Navigation.PushAsync(new Main());
-                        App.Current.MainPage = new NavigationPage(new Main());
-                    }
-                    else
-                    {
-                        //var creerCompte = await DisplayAlert("Alert", "Il n'existe pas un utilisateur avec cette adresse courriel et ce mot de passe. Voulez-vous créer un nouveau compte?", "Oui", "Non");
-
-                        //if (creerCompte)
-                        //{
-                        //    Navigation.PushAsync(new NouveauCompte());
-                        //}
+                   
 
                         var succes = await Auth.ConnecterUtilisateur(adresseCourriel, motDePasse);
                         var user = Auth.RetourerIdentifiantUtilisateur();
@@ -56,7 +43,7 @@ namespace Depense
                             App.Current.MainPage = new NavigationPage(new Main());
                         }
 
-                    }
+                    
                 }
             }
         }

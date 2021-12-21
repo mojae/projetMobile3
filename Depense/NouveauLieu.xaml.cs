@@ -94,9 +94,35 @@ namespace Depense
                 DisplayAlert("Alert", "Veuillez saisir une catégorie", "Fermer");
                 return;
             }
+            
+            if (longitude>=181 || longitude<=-181)
+                {
+                    if (latitude >= 91 || latitude <= -91)
+                        {
+
+                            DisplayAlert("Alert", "Veuillez saisir une latitude entre 90 et -90 et une longitude entre 180 et -180 ", "Fermer");
+                            return;
+                        }
+
+                    DisplayAlert("Alert", "Veuillez saisir une longitude entre 180 et -180 ", "Fermer");
+                        return;
+                }
+            if (latitude >= 91 || latitude <= -91)
+            {
+                if (longitude >= 181 || longitude <= -181)
+                    {
+                        DisplayAlert("Alert", "Veuillez saisir une latitude entre 90 et -90 et une longitude entre 180 et -180", "Fermer");
+                        return;
+                    }
+
+                DisplayAlert("Alert", "Veuillez saisir une latitude entre 90 et -90 ", "Fermer");
+                return;
+            }
+
 
             if (_lieu == null)
             {
+               
                 using (var conn = new SQLiteConnection(App.CheminBD))
                 {
                     var nouveauLieu = new MonLieu()
